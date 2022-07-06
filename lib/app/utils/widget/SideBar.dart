@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:task_management_app/app/routes/app_pages.dart';
+import 'package:task_management_app/app/utils/style/AppColors.dart';
 
 class SideBar extends StatelessWidget {
   const SideBar({
@@ -14,7 +15,7 @@ class SideBar extends StatelessWidget {
       elevation: 0,
       child: Container(
         height: Get.height,
-        color: Colors.blue[100],
+        color: AppColors.primaryBG,
         child: SingleChildScrollView(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -48,7 +49,7 @@ class SideBar extends StatelessWidget {
                           Get.currentRoute == '/home'
                               ? Ionicons.desktop
                               : Ionicons.desktop_outline,
-                          color: Colors.grey,
+                          color: AppColors.primaryText,
                         ),
                       ),
                       const SizedBox(
@@ -56,7 +57,8 @@ class SideBar extends StatelessWidget {
                       ),
                       const Text(
                         "home",
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                        style: TextStyle(
+                            fontSize: 16, color: AppColors.primaryText),
                       ),
                     ],
                   ),
@@ -82,7 +84,7 @@ class SideBar extends StatelessWidget {
                           Get.currentRoute == '/task'
                               ? Ionicons.book
                               : Ionicons.book_outline,
-                          color: Colors.grey,
+                          color: AppColors.primaryText,
                         ),
                       ),
                       const SizedBox(
@@ -90,7 +92,8 @@ class SideBar extends StatelessWidget {
                       ),
                       const Text(
                         "Task",
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                        style: TextStyle(
+                            fontSize: 16, color: AppColors.primaryText),
                       ),
                     ],
                   ),
@@ -116,7 +119,7 @@ class SideBar extends StatelessWidget {
                           Get.currentRoute == '/friends'
                               ? Ionicons.heart
                               : Ionicons.heart_outline,
-                          color: Colors.grey,
+                          color: AppColors.primaryText,
                         ),
                       ),
                       const SizedBox(
@@ -124,7 +127,8 @@ class SideBar extends StatelessWidget {
                       ),
                       const Text(
                         "Friends",
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                        style: TextStyle(
+                            fontSize: 16, color: AppColors.primaryText),
                       ),
                     ],
                   ),
@@ -150,7 +154,7 @@ class SideBar extends StatelessWidget {
                           Get.currentRoute == '/profile'
                               ? Ionicons.person
                               : Ionicons.person_outline,
-                          color: Colors.grey,
+                          color: AppColors.primaryText,
                         ),
                       ),
                       const SizedBox(
@@ -158,7 +162,8 @@ class SideBar extends StatelessWidget {
                       ),
                       const Text(
                         "Profile",
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                        style: TextStyle(
+                            fontSize: 16, color: AppColors.primaryText),
                       ),
                     ],
                   ),
