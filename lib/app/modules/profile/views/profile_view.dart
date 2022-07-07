@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:task_management_app/app/routes/app_pages.dart';
 import 'package:task_management_app/app/utils/style/AppColors.dart';
+import 'package:task_management_app/app/utils/widget/MyTask.dart';
+import 'package:task_management_app/app/utils/widget/ProfileWidget.dart';
 import 'package:task_management_app/app/utils/widget/SideBar.dart';
 import 'package:task_management_app/app/utils/widget/header.dart';
 
@@ -61,22 +64,50 @@ class ProfileView extends GetView<ProfileController> {
                               ],
                             ),
                             const Spacer(),
-                            const Icon(Ionicons.notifications, size: 25),
-                            const SizedBox(width: 15),
-                            const ClipRRect(
-                              child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 25,
-                                  foregroundImage:
-                                      AssetImage('assets/images/avatar.png')),
-                            )
+                            GestureDetector(
+                              onTap: () {
+                                Get.defaultDialog(
+                                  title: "Sign Out",
+                                  content: const Text(
+                                      "Are You Sure Want to Sign Out?"),
+                                  cancel: ElevatedButton(
+                                    onPressed: () => Get.back(),
+                                    child: const Text("Cancel"),
+                                  ),
+                                  confirm: ElevatedButton(
+                                    onPressed: () => Get.toNamed(Routes.LOGIN),
+                                    child: const Text("Sign Out"),
+                                  ),
+                                );
+                              },
+                              child: Row(
+                                children: const [
+                                  Text(
+                                    "Sign Out",
+                                    style:
+                                        TextStyle(color: AppColors.primaryText),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Icon(
+                              Ionicons.log_out_outline,
+                              color: AppColors.primaryText,
+                              size: 30,
+                            ),
                           ],
                         ),
                       ),
                 //content / isi page / screen
                 Expanded(
                   child: Container(
-                    padding: const EdgeInsets.all(50),
+                    padding: !context.isPhone
+                        ? const EdgeInsets.only(
+                            left: 100, right: 100, bottom: 30, top: 10)
+                        : const EdgeInsets.all(20),
                     margin: !context.isPhone
                         ? const EdgeInsets.all(15)
                         : const EdgeInsets.all(0),
@@ -85,6 +116,26 @@ class ProfileView extends GetView<ProfileController> {
                             ? BorderRadius.circular(50)
                             : BorderRadius.circular(30),
                         color: Colors.white),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        ProfileWidget(),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10, top: 20),
+                          child: Text(
+                            'My Task',
+                            style: TextStyle(
+                              color: AppColors.primaryText,
+                              fontSize: 23,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 180,
+                          child: MyTask(),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],

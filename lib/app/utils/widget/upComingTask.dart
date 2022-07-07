@@ -10,11 +10,14 @@ class upComingTask extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Text(
-          'Up Coming Task',
-          style: TextStyle(
-            color: AppColors.primaryText,
-            fontSize: 25,
+        const Padding(
+          padding: EdgeInsets.only(left: 10, top: 10),
+          child: Text(
+            'Up Coming Task',
+            style: TextStyle(
+              color: AppColors.primaryText,
+              fontSize: 23,
+            ),
           ),
         ),
         const SizedBox(height: 10),
@@ -26,7 +29,7 @@ class upComingTask extends StatelessWidget {
               shrinkWrap: true,
               children: [
                 Container(
-                  height: 200,
+                  height: 160,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: AppColors.cardBG,
@@ -89,7 +92,7 @@ class upComingTask extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: 200,
+                  height: 160,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: AppColors.cardBG,

@@ -12,60 +12,63 @@ class MyFriends extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(children: [
-        Row(children: [
-          const Text(
-            'My Firends',
-            style: TextStyle(
-              color: AppColors.primaryText,
-              fontSize: 25,
-            ),
-          ),
-          const Spacer(),
-          GestureDetector(
-            onTap: () => Get.toNamed(Routes.FRIENDS),
-            child: const Text(
-              'more',
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: Column(children: [
+          Row(children: [
+            const Text(
+              'My Friends',
               style: TextStyle(
                 color: AppColors.primaryText,
-                fontSize: 20,
+                fontSize: 23,
               ),
             ),
-          ),
-          const Icon(
-            Ionicons.chevron_forward,
-            color: AppColors.primaryText,
-          )
-        ]),
-        SizedBox(
-          height: 200,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: GridView.builder(
-              shrinkWrap: true,
-              itemCount: 8,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, crossAxisSpacing: 5, mainAxisSpacing: 5),
-              itemBuilder: (context, index) {
-                return Column(children: const [
-                  ClipRRect(
-                    child: Image(
-                      height: 150,
-                      image: AssetImage(
-                        'assets/images/avatar.png',
+            const Spacer(),
+            GestureDetector(
+              onTap: () => Get.toNamed(Routes.FRIENDS),
+              child: const Text(
+                'more',
+                style: TextStyle(
+                  color: AppColors.primaryText,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            const Icon(
+              Ionicons.chevron_forward,
+              color: AppColors.primaryText,
+            )
+          ]),
+          SizedBox(
+            height: 200,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: GridView.builder(
+                shrinkWrap: true,
+                itemCount: 8,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, crossAxisSpacing: 5, mainAxisSpacing: 5),
+                itemBuilder: (context, index) {
+                  return Column(children: const [
+                    ClipRRect(
+                      child: Image(
+                        height: 150,
+                        image: AssetImage(
+                          'assets/images/avatar.png',
+                        ),
                       ),
                     ),
-                  ),
-                  Text(
-                    'Joshua Sitorus',
-                    style: TextStyle(color: AppColors.primaryText),
-                  )
-                ]);
-              },
+                    Text(
+                      'Joshua Sitorus',
+                      style: TextStyle(color: AppColors.primaryText),
+                    )
+                  ]);
+                },
+              ),
             ),
-          ),
-        )
-      ]),
+          )
+        ]),
+      ),
     );
   }
 }
