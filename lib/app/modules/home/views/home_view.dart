@@ -6,6 +6,7 @@ import 'package:task_management_app/app/utils/style/AppColors.dart';
 import 'package:task_management_app/app/utils/widget/SideBar.dart';
 import 'package:task_management_app/app/utils/widget/header.dart';
 
+import '../../../utils/widget/MyFriends.dart';
 import '../../../utils/widget/UpComingTask.dart';
 import '../controllers/home_controller.dart';
 
@@ -424,36 +425,15 @@ class HomeView extends GetView<HomeController> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 10),
-                        child: Row(children: [
-                          const upComingTask(),
-                          Expanded(
-                            child: Column(children: [
-                              Row(children: const [
-                                Text(
-                                  'My Firends',
-                                  style: TextStyle(
-                                    color: AppColors.primaryText,
-                                    fontSize: 25,
-                                  ),
-                                ),
-                                Text(
-                                  'More',
-                                  style: TextStyle(
-                                    color: AppColors.primaryText,
-                                    fontSize: 25,
-                                  ),
-                                ),
-                                Icon(
-                                  Ionicons.arrow_forward,
-                                  color: AppColors.primaryText,
-                                )
+                      !context.isPhone
+                          ? Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 10),
+                              child: Row(children: const [
+                                upComingTask(),
+                                MyFriends(),
                               ]),
-                            ]),
-                          ),
-                        ]),
-                      ),
+                            )
+                          : const upComingTask(),
                     ]),
               ),
             ),
