@@ -19,6 +19,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: _drawerKey,
       drawer: const SideBar(),
       backgroundColor: AppColors.primaryBG,
