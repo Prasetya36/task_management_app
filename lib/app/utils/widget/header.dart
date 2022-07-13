@@ -14,7 +14,7 @@ class header extends StatelessWidget {
     return SizedBox(
       height: Get.height * 0.1,
       child: Padding(
-        padding: const EdgeInsets.only(left: 40, right: 40, top: 25),
+        padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

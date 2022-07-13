@@ -106,7 +106,7 @@ class ProfileView extends GetView<ProfileController> {
                   child: Container(
                     padding: !context.isPhone
                         ? const EdgeInsets.only(
-                            left: 100, right: 100, bottom: 30, top: 10)
+                            left: 100, right: 100, bottom: 30)
                         : const EdgeInsets.all(20),
                     margin: !context.isPhone
                         ? const EdgeInsets.all(15)
@@ -121,7 +121,7 @@ class ProfileView extends GetView<ProfileController> {
                       children: const [
                         ProfileWidget(),
                         Padding(
-                          padding: EdgeInsets.only(left: 10, top: 20),
+                          padding: EdgeInsets.only(left: 10),
                           child: Text(
                             'My Task',
                             style: TextStyle(
