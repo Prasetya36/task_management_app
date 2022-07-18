@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:get/get.dart';
 
 import '../modules/friends/bindings/friends_binding.dart';
@@ -29,7 +27,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LOGIN,
-      page: () => const LoginView(),
+      page: () => LoginView(),
       binding: LoginBinding(),
     ),
     GetPage(

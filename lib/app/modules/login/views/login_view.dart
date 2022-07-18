@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:task_management_app/app/data/controller/auth_controller.dart';
 import 'package:task_management_app/app/routes/app_pages.dart';
 
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
+  final AuthC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +93,7 @@ class LoginView extends GetView<LoginController> {
                       scale: 2.5,
                     ),
                     FloatingActionButton.extended(
-                      onPressed: () => Get.toNamed(Routes.HOME),
+                      onPressed: () => AuthC.signInWithGoogle(),
                       label: const Text("sign In With Google"),
                       icon: const Icon(
                         Ionicons.logo_google,
