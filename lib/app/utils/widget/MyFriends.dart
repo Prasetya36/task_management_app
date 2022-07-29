@@ -15,7 +15,7 @@ class MyFriends extends StatelessWidget {
       child: Column(children: [
         Row(children: [
           const Padding(
-            padding: EdgeInsets.only(left: 10),
+            padding: EdgeInsets.only(left: 10, top: 10),
             child: Text(
               'My Friends',
               style: TextStyle(
@@ -46,16 +46,16 @@ class MyFriends extends StatelessWidget {
             height: 200,
             child: GridView.builder(
               shrinkWrap: true,
-              itemCount: 8,
+              itemCount: 10,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: context.isPhone ? 2 : 3,
-                crossAxisSpacing: 20,
+                crossAxisCount: context.isPhone ? 2 : 5,
+                crossAxisSpacing: 1,
                 mainAxisSpacing: 30,
               ),
               itemBuilder: (context, index) {
                 return Column(children: const [
                   CircleAvatar(
-                    maxRadius: 70,
+                    maxRadius: 80,
                     foregroundImage: AssetImage('assets/images/avatar.png'),
                   ),
                   Text(

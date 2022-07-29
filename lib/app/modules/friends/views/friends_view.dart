@@ -7,6 +7,7 @@ import 'package:task_management_app/app/utils/widget/MyFriends.dart';
 import 'package:task_management_app/app/utils/widget/SideBar.dart';
 import 'package:task_management_app/app/utils/widget/header.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/friends_controller.dart';
 
 class FriendsView extends GetView<FriendsController> {
@@ -55,7 +56,7 @@ class FriendsView extends GetView<FriendsController> {
                                 Text(
                                   "Manage Task Easy With Friend",
                                   style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 14,
                                       color: AppColors.primaryText),
                                 ),
                               ]),
@@ -88,19 +89,19 @@ class FriendsView extends GetView<FriendsController> {
                     color: Colors.white,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 10),
+                    padding: !context.isPhone
+                        ? const EdgeInsets.only(left: 20)
+                        : const EdgeInsets.only(left: 20, top: 20),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
                             'People You Know',
                             style: TextStyle(
-                                fontSize: 23,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primaryText),
+                                fontSize: 23, color: AppColors.primaryText),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 20, bottom: 20),
+                            padding: const EdgeInsets.only(top: 5, bottom: 10),
                             child: SizedBox(
                               height: 180,
                               child: ListView.builder(
@@ -110,7 +111,8 @@ class FriendsView extends GetView<FriendsController> {
                                 itemCount: 10,
                                 itemBuilder: (context, index) {
                                   return Padding(
-                                    padding: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.only(
+                                        top: 20, bottom: 20, right: 20),
                                     child: Stack(children: [
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(50),
@@ -155,7 +157,77 @@ class FriendsView extends GetView<FriendsController> {
                               ),
                             ),
                           ),
-                          const MyFriends(),
+                          !context.isPhone
+                              ? const MyFriends()
+                              : Expanded(
+                                  child: Column(children: [
+                                    Row(children: [
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.only(left: 10, top: 10),
+                                        child: Text(
+                                          'My Friends',
+                                          style: TextStyle(
+                                            color: AppColors.primaryText,
+                                            fontSize: 23,
+                                          ),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      GestureDetector(
+                                        onTap: () =>
+                                            Get.toNamed(Routes.FRIENDS),
+                                        child: const Text(
+                                          'more',
+                                          style: TextStyle(
+                                            color: AppColors.primaryText,
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                      ),
+                                      const Icon(
+                                        Ionicons.chevron_forward,
+                                        color: AppColors.primaryText,
+                                      )
+                                    ]),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: SizedBox(
+                                        height: 380,
+                                        child: GridView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 12,
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount:
+                                                context.isPhone ? 3 : 3,
+                                            mainAxisSpacing: 25,
+                                          ),
+                                          itemBuilder: (context, index) {
+                                            return Column(children: const [
+                                              CircleAvatar(
+                                                maxRadius: 49,
+                                                foregroundImage: AssetImage(
+                                                    'assets/images/avatar.png'),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 1.5),
+                                                child: Text(
+                                                  'Jhosua Sitorus',
+                                                  style: TextStyle(
+                                                      color:
+                                                          AppColors.primaryText,
+                                                      fontSize: 15),
+                                                ),
+                                              ),
+                                            ]);
+                                          },
+                                        ),
+                                      ),
+                                    )
+                                  ]),
+                                ),
                         ]),
                   ),
                 ),

@@ -60,7 +60,7 @@ class ProfileView extends GetView<ProfileController> {
                                   Text(
                                     "Manage Task Easy With Friend",
                                     style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 14,
                                         color: AppColors.primaryText),
                                   ),
                                 ],
@@ -108,8 +108,9 @@ class ProfileView extends GetView<ProfileController> {
                     child: Container(
                       padding: !context.isPhone
                           ? const EdgeInsets.only(
-                              left: 100, right: 100, bottom: 30)
-                          : const EdgeInsets.all(20),
+                              left: 10, right: 100, bottom: 30)
+                          : const EdgeInsets.only(
+                              left: 20, right: 20, bottom: 30),
                       margin: !context.isPhone
                           ? const EdgeInsets.all(15)
                           : const EdgeInsets.all(0),
@@ -120,11 +121,55 @@ class ProfileView extends GetView<ProfileController> {
                           color: Colors.white),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          ProfileWidget(),
+                        children: [
+                          !context.isPhone
+                              ? const ProfileWidget()
+                              : Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 40, bottom: 20, left: 60),
+                                  child: Expanded(
+                                    child: Column(
+                                      children: [
+                                        const ClipRRect(
+                                          child: CircleAvatar(
+                                            maxRadius: 100,
+                                            backgroundImage: AssetImage(
+                                                'assets/images/avatar.png'),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 20, right: 20, bottom: 10),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: const [
+                                              Text(
+                                                'Jhosua Sitorus',
+                                                style: TextStyle(
+                                                  color: AppColors.primaryText,
+                                                  fontSize: 30,
+                                                ),
+                                              ),
+                                              Text(
+                                                'Sitorus@gmail.com',
+                                                style: TextStyle(
+                                                  color: AppColors.primaryText,
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                           Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Text(
+                            padding: !context.isPhone
+                                ? const EdgeInsets.only(left: 70)
+                                : const EdgeInsets.only(left: 15, top: 50),
+                            child: const Text(
                               'My Task',
                               style: TextStyle(
                                 color: AppColors.primaryText,
@@ -132,9 +177,14 @@ class ProfileView extends GetView<ProfileController> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 180,
-                            child: MyTask(),
+                          Padding(
+                            padding: !context.isPhone
+                                ? const EdgeInsets.only(left: 70)
+                                : const EdgeInsets.only(left: 10),
+                            child: const SizedBox(
+                              height: 180,
+                              child: MyTask(),
+                            ),
                           )
                         ],
                       ),

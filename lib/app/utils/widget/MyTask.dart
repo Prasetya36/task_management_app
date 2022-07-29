@@ -16,12 +16,12 @@ class MyTask extends StatelessWidget {
           shrinkWrap: true,
           children: [
             Container(
-              width: 450,
+              width: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: AppColors.cardBG,
               ),
-              margin: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +45,7 @@ class MyTask extends StatelessWidget {
                       ),
                       const Spacer(),
                       Container(
-                        height: 25,
+                        height: 20,
                         width: 80,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -57,7 +57,7 @@ class MyTask extends StatelessWidget {
                   ),
                   const Spacer(),
                   Container(
-                    height: 25,
+                    height: 20,
                     width: 80,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -79,12 +79,12 @@ class MyTask extends StatelessWidget {
               ),
             ),
             Container(
-              width: 400,
+              width: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: AppColors.cardBG,
               ),
-              margin: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +108,7 @@ class MyTask extends StatelessWidget {
                       ),
                       const Spacer(),
                       Container(
-                        height: 25,
+                        height: 20,
                         width: 80,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -120,7 +120,7 @@ class MyTask extends StatelessWidget {
                   ),
                   const Spacer(),
                   Container(
-                    height: 25,
+                    height: 20,
                     width: 80,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -142,12 +142,12 @@ class MyTask extends StatelessWidget {
               ),
             ),
             Container(
-              width: 400,
+              width: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: AppColors.cardBG,
               ),
-              margin: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,7 +171,7 @@ class MyTask extends StatelessWidget {
                       ),
                       const Spacer(),
                       Container(
-                        height: 25,
+                        height: 20,
                         width: 80,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -183,7 +183,7 @@ class MyTask extends StatelessWidget {
                   ),
                   const Spacer(),
                   Container(
-                    height: 25,
+                    height: 20,
                     width: 80,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -205,12 +205,12 @@ class MyTask extends StatelessWidget {
               ),
             ),
             Container(
-              width: 400,
+              width: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: AppColors.cardBG,
               ),
-              margin: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -234,7 +234,7 @@ class MyTask extends StatelessWidget {
                       ),
                       const Spacer(),
                       Container(
-                        height: 25,
+                        height: 20,
                         width: 80,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -246,7 +246,7 @@ class MyTask extends StatelessWidget {
                   ),
                   const Spacer(),
                   Container(
-                    height: 25,
+                    height: 20,
                     width: 80,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),

@@ -10,7 +10,7 @@ class ProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 40, bottom: 20, left: 50, right: 50),
+      padding: const EdgeInsets.only(top: 40, bottom: 20, left: 70),
       child: Expanded(
         child: !context.isPhone
             ? Row(

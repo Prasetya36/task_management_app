@@ -6,6 +6,7 @@ import 'package:task_management_app/app/utils/style/AppColors.dart';
 import 'package:task_management_app/app/utils/widget/SideBar.dart';
 import 'package:task_management_app/app/utils/widget/header.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../../utils/widget/MyFriends.dart';
 import '../../../utils/widget/MyTask.dart';
 import '../../../utils/widget/UpComingTask.dart';
@@ -58,9 +59,9 @@ class HomeView extends GetView<HomeController> {
                                 style: TextStyle(fontSize: 21),
                               ),
                               Text(
-                                "Manage Task Easy With Friend",
+                                "Manage Task Easy With Friends",
                                 style: TextStyle(
-                                    fontSize: 15, color: AppColors.primaryText),
+                                    fontSize: 14, color: AppColors.primaryText),
                               ),
                             ],
                           ),
@@ -96,14 +97,16 @@ class HomeView extends GetView<HomeController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 10),
+                          padding: !context.isPhone
+                              ? const EdgeInsets.only(left: 20)
+                              : const EdgeInsets.only(left: 10, top: 20),
                           child: SizedBox(
-                            height: 250,
+                            height: !context.isPhone ? 245 : 250,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: const [
                                 Padding(
-                                  padding: EdgeInsets.only(top: 10, left: 10),
+                                  padding: EdgeInsets.only(left: 10),
                                   child: Text(
                                     'My Task',
                                     style: TextStyle(
@@ -112,7 +115,6 @@ class HomeView extends GetView<HomeController> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 10),
                                 // My Task
                                 MyTask(),
                               ],
@@ -121,14 +123,382 @@ class HomeView extends GetView<HomeController> {
                         ),
                         !context.isPhone
                             ? Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, top: 10),
-                                child: Row(children: const [
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Row(children: [
                                   upComingTask(),
-                                  MyFriends(),
+                                  !context.isPhone
+                                      ? Expanded(
+                                          child: Column(children: [
+                                            Row(children: [
+                                              const Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 10, top: 10),
+                                                child: Text(
+                                                  'My Friends',
+                                                  style: TextStyle(
+                                                    color:
+                                                        AppColors.primaryText,
+                                                    fontSize: 23,
+                                                  ),
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              GestureDetector(
+                                                onTap: () =>
+                                                    Get.toNamed(Routes.FRIENDS),
+                                                child: const Text(
+                                                  'more',
+                                                  style: TextStyle(
+                                                    color:
+                                                        AppColors.primaryText,
+                                                    fontSize: 20,
+                                                  ),
+                                                ),
+                                              ),
+                                              const Icon(
+                                                Ionicons.chevron_forward,
+                                                color: AppColors.primaryText,
+                                              )
+                                            ]),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 20),
+                                              child: SizedBox(
+                                                height: 200,
+                                                child: GridView.builder(
+                                                  shrinkWrap: true,
+                                                  itemCount: 10,
+                                                  gridDelegate:
+                                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount:
+                                                        context.isPhone ? 2 : 3,
+                                                    crossAxisSpacing: 1,
+                                                    mainAxisSpacing: 30,
+                                                  ),
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return Column(
+                                                        children: const [
+                                                          CircleAvatar(
+                                                            maxRadius: 75,
+                                                            foregroundImage:
+                                                                AssetImage(
+                                                                    'assets/images/avatar.png'),
+                                                          ),
+                                                          Text(
+                                                            'Jhosua Sitorus',
+                                                            style: TextStyle(
+                                                                color: AppColors
+                                                                    .primaryText,
+                                                                fontSize: 18),
+                                                          ),
+                                                        ]);
+                                                  },
+                                                ),
+                                              ),
+                                            )
+                                          ]),
+                                        )
+                                      : MyFriends(),
                                 ]),
                               )
-                            : const upComingTask(),
+                            : Expanded(
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Text(
+                                          'Up Coming Task',
+                                          style: TextStyle(
+                                            color: AppColors.primaryText,
+                                            fontSize: 23,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      SizedBox(
+                                        height: 350,
+                                        child: ListView(
+                                            clipBehavior: Clip.antiAlias,
+                                            scrollDirection: Axis.vertical,
+                                            shrinkWrap: true,
+                                            children: [
+                                              Container(
+                                                height: 150,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  color: AppColors.cardBG,
+                                                ),
+                                                margin:
+                                                    const EdgeInsets.all(10),
+                                                padding:
+                                                    const EdgeInsets.all(20),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        const ClipRRect(
+                                                          child: CircleAvatar(
+                                                              backgroundColor:
+                                                                  Colors.white,
+                                                              radius: 20,
+                                                              foregroundImage:
+                                                                  AssetImage(
+                                                                      'assets/images/avatar.png')),
+                                                        ),
+                                                        const Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    right: 3)),
+                                                        const ClipRRect(
+                                                          child: CircleAvatar(
+                                                              backgroundColor:
+                                                                  Colors.white,
+                                                              radius: 20,
+                                                              foregroundImage:
+                                                                  AssetImage(
+                                                                      'assets/images/avatar.png')),
+                                                        ),
+                                                        const Spacer(),
+                                                        Container(
+                                                          height: 25,
+                                                          width: 80,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20),
+                                                            color: AppColors
+                                                                .primaryBG,
+                                                          ),
+                                                          child: const Center(
+                                                              child:
+                                                                  Text('100%')),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const Spacer(),
+                                                    Container(
+                                                      height: 25,
+                                                      width: 80,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                        color:
+                                                            AppColors.primaryBG,
+                                                      ),
+                                                      child: const Center(
+                                                          child: Text(
+                                                              '10 / 10 task')),
+                                                    ),
+                                                    const Text(
+                                                      'Pemrogramana Desktop',
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .primaryText,
+                                                          fontSize: 20),
+                                                    ),
+                                                    const Text(
+                                                      'Deadline 2 hari lagi',
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .primaryText,
+                                                          fontSize: 15),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 150,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  color: AppColors.cardBG,
+                                                ),
+                                                margin:
+                                                    const EdgeInsets.all(10),
+                                                padding:
+                                                    const EdgeInsets.all(20),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        const ClipRRect(
+                                                          child: CircleAvatar(
+                                                              backgroundColor:
+                                                                  Colors.white,
+                                                              radius: 20,
+                                                              foregroundImage:
+                                                                  AssetImage(
+                                                                      'assets/images/avatar.png')),
+                                                        ),
+                                                        const Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    right: 3)),
+                                                        const ClipRRect(
+                                                          child: CircleAvatar(
+                                                              backgroundColor:
+                                                                  Colors.white,
+                                                              radius: 20,
+                                                              foregroundImage:
+                                                                  AssetImage(
+                                                                      'assets/images/avatar.png')),
+                                                        ),
+                                                        const Spacer(),
+                                                        Container(
+                                                          height: 25,
+                                                          width: 80,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20),
+                                                            color: AppColors
+                                                                .primaryBG,
+                                                          ),
+                                                          child: const Center(
+                                                              child:
+                                                                  Text('100%')),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const Spacer(),
+                                                    Container(
+                                                      height: 25,
+                                                      width: 80,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                        color:
+                                                            AppColors.primaryBG,
+                                                      ),
+                                                      child: const Center(
+                                                          child: Text(
+                                                              '10 / 10 task')),
+                                                    ),
+                                                    const Text(
+                                                      'Pemrogramana Desktop',
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .primaryText,
+                                                          fontSize: 20),
+                                                    ),
+                                                    const Text(
+                                                      'Deadline 2 hari lagi',
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .primaryText,
+                                                          fontSize: 15),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 150,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  color: AppColors.cardBG,
+                                                ),
+                                                margin:
+                                                    const EdgeInsets.all(10),
+                                                padding:
+                                                    const EdgeInsets.all(20),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        const ClipRRect(
+                                                          child: CircleAvatar(
+                                                              backgroundColor:
+                                                                  Colors.white,
+                                                              radius: 20,
+                                                              foregroundImage:
+                                                                  AssetImage(
+                                                                      'assets/images/avatar.png')),
+                                                        ),
+                                                        const Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    right: 3)),
+                                                        const ClipRRect(
+                                                          child: CircleAvatar(
+                                                              backgroundColor:
+                                                                  Colors.white,
+                                                              radius: 20,
+                                                              foregroundImage:
+                                                                  AssetImage(
+                                                                      'assets/images/avatar.png')),
+                                                        ),
+                                                        const Spacer(),
+                                                        Container(
+                                                          height: 25,
+                                                          width: 80,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20),
+                                                            color: AppColors
+                                                                .primaryBG,
+                                                          ),
+                                                          child: const Center(
+                                                              child:
+                                                                  Text('100%')),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const Spacer(),
+                                                    Container(
+                                                      height: 25,
+                                                      width: 80,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                        color:
+                                                            AppColors.primaryBG,
+                                                      ),
+                                                      child: const Center(
+                                                          child: Text(
+                                                              '10 / 10 task')),
+                                                    ),
+                                                    const Text(
+                                                      'Pemrogramana Desktop',
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .primaryText,
+                                                          fontSize: 20),
+                                                    ),
+                                                    const Text(
+                                                      'Deadline 2 hari lagi',
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .primaryText,
+                                                          fontSize: 15),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ]),
+                                      ),
+                                    ]),
+                              ),
                       ]),
                 ),
               ),

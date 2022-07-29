@@ -11,7 +11,7 @@ class upComingTask extends StatelessWidget {
     return Expanded(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Padding(
-          padding: EdgeInsets.only(left: 10, top: 10),
+          padding: EdgeInsets.only(left: 20),
           child: Text(
             'Up Coming Task',
             style: TextStyle(

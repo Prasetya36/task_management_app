@@ -14,7 +14,7 @@ class header extends StatelessWidget {
     return SizedBox(
       height: Get.height * 0.1,
       child: Padding(
-        padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
+        padding: const EdgeInsets.only(left: 40, right: 40, top: 12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -27,7 +27,7 @@ class header extends StatelessWidget {
                   style: TextStyle(fontSize: 21),
                 ),
                 Text(
-                  "Manage Task Easy With Friend",
+                  "Manage Task Easy With Friends",
                   style: TextStyle(fontSize: 15, color: AppColors.primaryText),
                 )
               ],

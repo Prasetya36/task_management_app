@@ -55,7 +55,7 @@ class TaskView extends GetView<TaskController> {
                                 Text(
                                   "Manage Task Easy With Friend",
                                   style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 14,
                                       color: AppColors.primaryText),
                                 ),
                               ],
@@ -91,13 +91,19 @@ class TaskView extends GetView<TaskController> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'My Task',
-                            style: TextStyle(
-                              color: AppColors.primaryText,
-                              fontSize: 23,
+                          Padding(
+                            padding: !context.isPhone
+                                ? const EdgeInsets.only(left: 20)
+                                : const EdgeInsets.only(left: 20, top: 20),
+                            child: const Text(
+                              'My Task',
+                              style: TextStyle(
+                                color: AppColors.primaryText,
+                                fontSize: 23,
+                              ),
                             ),
                           ),
+                          const SizedBox(height: 10),
                           Expanded(
                             child: ListView.builder(
                               itemCount: 8,
@@ -111,7 +117,7 @@ class TaskView extends GetView<TaskController> {
                                     borderRadius: BorderRadius.circular(20),
                                     color: AppColors.cardBG,
                                   ),
-                                  margin: const EdgeInsets.all(10),
+                                  margin: const EdgeInsets.all(15),
                                   padding: const EdgeInsets.all(20),
                                   child: Column(
                                       crossAxisAlignment:
