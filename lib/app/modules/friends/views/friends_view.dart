@@ -235,7 +235,7 @@ class FriendsView extends GetView<FriendsController> {
                                             padding:
                                                 const EdgeInsets.only(top: 20),
                                             child: SizedBox(
-                                              height: 325,
+                                              height: 320,
                                               child: GridView.builder(
                                                 shrinkWrap: true,
                                                 itemCount: 12,
