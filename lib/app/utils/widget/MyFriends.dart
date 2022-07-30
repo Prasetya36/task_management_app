@@ -1,13 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:task_management_app/app/routes/app_pages.dart';
 import 'package:task_management_app/app/utils/style/AppColors.dart';
 
+import '../../data/controller/auth_controller.dart';
+
 class MyFriends extends StatelessWidget {
-  const MyFriends({
-    Key? key,
-  }) : super(key: key);
+  final authC = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,33 +41,54 @@ class MyFriends extends StatelessWidget {
             color: AppColors.primaryText,
           )
         ]),
-        Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: SizedBox(
-            height: 200,
-            child: GridView.builder(
-              shrinkWrap: true,
-              itemCount: 10,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: context.isPhone ? 2 : 5,
-                crossAxisSpacing: 1,
-                mainAxisSpacing: 30,
-              ),
-              itemBuilder: (context, index) {
-                return Column(children: const [
-                  CircleAvatar(
-                    maxRadius: 80,
-                    foregroundImage: AssetImage('assets/images/avatar.png'),
+        SizedBox(
+          height: 200,
+          child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+              stream: authC.streamFriends(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                var myFriends = (snapshot.data!.data()
+                    as Map<String, dynamic>)['emailFriends'] as List;
+
+                return GridView.builder(
+                  shrinkWrap: true,
+                  itemCount: myFriends.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: context.isPhone ? 2 : 5,
+                    crossAxisSpacing: 1,
+                    mainAxisSpacing: 30,
                   ),
-                  Text(
-                    'Jhosua Sitorus',
-                    style:
-                        TextStyle(color: AppColors.primaryText, fontSize: 18),
-                  ),
-                ]);
-              },
-            ),
-          ),
+                  itemBuilder: (context, index) {
+                    return StreamBuilder<
+                            DocumentSnapshot<Map<String, dynamic>>>(
+                        stream: authC.streamUsers(myFriends[index]),
+                        builder: (context, snapshot2) {
+                          if (snapshot2.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+
+                          var data = snapshot2.data!.data();
+
+                          return Column(children: [
+                            CircleAvatar(
+                              maxRadius: 80,
+                              foregroundImage: NetworkImage(data!['photo']),
+                            ),
+                            Text(
+                              data['name'],
+                              style: const TextStyle(
+                                  color: AppColors.primaryText, fontSize: 18),
+                            ),
+                          ]);
+                        });
+                  },
+                );
+              }),
         )
       ]),
     );
