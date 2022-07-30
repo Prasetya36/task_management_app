@@ -129,19 +129,23 @@ class FriendsView extends GetView<FriendsController> {
                   child: Padding(
                     padding: !context.isPhone
                         ? const EdgeInsets.only(left: 20)
-                        : const EdgeInsets.only(left: 20, top: 20),
+                        : const EdgeInsets.only(top: 20),
                     child: Obx(() => authC.hasilPencarian.isEmpty
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                                const Text(
-                                  'People You May Know',
-                                  style: TextStyle(
-                                      fontSize: 23,
-                                      color: AppColors.primaryText),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: const Text(
+                                    'People You May Know',
+                                    style: TextStyle(
+                                        fontSize: 23,
+                                        color: AppColors.primaryText),
+                                  ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(top: 5, bottom: 10),
+                                  padding: EdgeInsets.only(
+                                      top: 5, bottom: 10, left: 20, right: 20),
                                   child: PeopleYouMayKnow(),
                                 ),
                                 !context.isPhone
@@ -149,11 +153,15 @@ class FriendsView extends GetView<FriendsController> {
                                     : Expanded(
                                         child: Column(children: [
                                           Row(children: [
-                                            Text(
-                                              'My Friends',
-                                              style: TextStyle(
-                                                color: AppColors.primaryText,
-                                                fontSize: 23,
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 20),
+                                              child: Text(
+                                                'My Friends',
+                                                style: TextStyle(
+                                                  color: AppColors.primaryText,
+                                                  fontSize: 23,
+                                                ),
                                               ),
                                             ),
                                             const Spacer(),
@@ -168,9 +176,13 @@ class FriendsView extends GetView<FriendsController> {
                                                 ),
                                               ),
                                             ),
-                                            const Icon(
-                                              Ionicons.chevron_forward,
-                                              color: AppColors.primaryText,
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 10),
+                                              child: const Icon(
+                                                Ionicons.chevron_forward,
+                                                color: AppColors.primaryText,
+                                              ),
                                             )
                                           ]),
                                           Padding(
@@ -206,9 +218,9 @@ class FriendsView extends GetView<FriendsController> {
                                                           SliverGridDelegateWithFixedCrossAxisCount(
                                                         crossAxisCount:
                                                             context.isPhone
-                                                                ? 3
-                                                                : 3,
-                                                        mainAxisSpacing: 10,
+                                                                ? 2
+                                                                : 5,
+                                                        mainAxisSpacing: 20,
                                                       ),
                                                       itemBuilder:
                                                           (context, index) {
@@ -235,30 +247,53 @@ class FriendsView extends GetView<FriendsController> {
                                                                   snapshot2
                                                                       .data!
                                                                       .data();
-                                                              return Column(
-                                                                  children: [
-                                                                    CircleAvatar(
-                                                                      maxRadius:
-                                                                          40,
-                                                                      foregroundImage:
-                                                                          NetworkImage(
-                                                                              data!['photo']),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsets
-                                                                          .only(
-                                                                              top: 1.5),
-                                                                      child:
-                                                                          Text(
-                                                                        data[
-                                                                            'name'],
-                                                                        style: TextStyle(
+                                                              return Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        left: 5,
+                                                                        right:
+                                                                            5),
+                                                                child: Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      ClipRRect(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(20),
+                                                                        child:
+                                                                            Image(
+                                                                          image:
+                                                                              NetworkImage(data!['photo']),
+                                                                          height:
+                                                                              Get.width * 0.35,
+                                                                          width:
+                                                                              Get.width * 0.35,
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.only(top: 10),
+                                                                        child:
+                                                                            Text(
+                                                                          data[
+                                                                              'name'],
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style:
+                                                                              TextStyle(
                                                                             color:
                                                                                 AppColors.primaryText,
-                                                                            fontSize: 15),
+                                                                            fontSize:
+                                                                                15,
+                                                                          ),
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                  ]);
+                                                                    ]),
+                                                              );
                                                             });
                                                       });
                                                 },
