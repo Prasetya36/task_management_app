@@ -37,7 +37,7 @@ class MyTaskPhone extends StatelessWidget {
                 var taskId = (snapshot.data!.data()
                     as Map<String, dynamic>)['task_id'] as List;
                 return SizedBox(
-                  height: context.isPhone ? 655 : 264,
+                  height: context.isPhone ? 655 : 479,
                   child: ListView.builder(
                     itemCount: taskId.length,
                     clipBehavior: Clip.antiAlias,
@@ -96,7 +96,7 @@ class MyTaskPhone extends StatelessWidget {
                                     ));
                               },
                               child: Container(
-                                height: 185,
+                                height: 195,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: AppColors.cardBG,

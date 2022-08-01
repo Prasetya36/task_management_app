@@ -190,6 +190,8 @@ class HomeView extends GetView<HomeController> {
                                                           as List;
 
                                                       return GridView.builder(
+                                                        addSemanticIndexes:
+                                                            true,
                                                         shrinkWrap: true,
                                                         itemCount:
                                                             myFriends.length,
