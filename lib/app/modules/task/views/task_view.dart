@@ -1,3 +1,4 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -111,76 +112,86 @@ class TaskView extends GetView<TaskController> {
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                return Container(
-                                  height: 160,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: AppColors.cardBG,
-                                  ),
-                                  margin: const EdgeInsets.all(15),
-                                  padding: const EdgeInsets.all(20),
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const ClipRRect(
-                                              child: CircleAvatar(
-                                                  backgroundColor: Colors.white,
-                                                  radius: 20,
-                                                  foregroundImage: AssetImage(
-                                                      'assets/images/avatar.png')),
-                                            ),
-                                            const Padding(
-                                                padding:
-                                                    EdgeInsets.only(right: 3)),
-                                            const ClipRRect(
-                                              child: CircleAvatar(
-                                                  backgroundColor: Colors.white,
-                                                  radius: 20,
-                                                  foregroundImage: AssetImage(
-                                                      'assets/images/avatar.png')),
-                                            ),
-                                            const Spacer(),
-                                            Container(
-                                              height: 25,
-                                              width: 80,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: AppColors.primaryBG,
+                                return GestureDetector(
+                                  onLongPress: () {
+                                    addEditTask(
+                                        context: context,
+                                        type: 'Update',
+                                        docId: '2022-08-01T11:49:53.686660');
+                                  },
+                                  child: Container(
+                                    height: 160,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: AppColors.cardBG,
+                                    ),
+                                    margin: const EdgeInsets.all(15),
+                                    padding: const EdgeInsets.all(20),
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              const ClipRRect(
+                                                child: CircleAvatar(
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    radius: 20,
+                                                    foregroundImage: AssetImage(
+                                                        'assets/images/avatar.png')),
                                               ),
-                                              child: const Center(
-                                                  child: Text('100%')),
-                                            ),
-                                          ],
-                                        ),
-                                        const Spacer(),
-                                        Container(
-                                          height: 25,
-                                          width: 80,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: AppColors.primaryBG,
+                                              const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 3)),
+                                              const ClipRRect(
+                                                child: CircleAvatar(
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    radius: 20,
+                                                    foregroundImage: AssetImage(
+                                                        'assets/images/avatar.png')),
+                                              ),
+                                              const Spacer(),
+                                              Container(
+                                                height: 25,
+                                                width: 80,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  color: AppColors.primaryBG,
+                                                ),
+                                                child: const Center(
+                                                    child: Text('100%')),
+                                              ),
+                                            ],
                                           ),
-                                          child: const Center(
-                                              child: Text('10 / 10 task')),
-                                        ),
-                                        const Text(
-                                          'Pemrogramana Desktop',
-                                          style: TextStyle(
-                                              color: AppColors.primaryText,
-                                              fontSize: 20),
-                                        ),
-                                        const Text(
-                                          'Deadline 2 hari lagi',
-                                          style: TextStyle(
-                                              color: AppColors.primaryText,
-                                              fontSize: 15),
-                                        ),
-                                      ]),
+                                          const Spacer(),
+                                          Container(
+                                            height: 25,
+                                            width: 80,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: AppColors.primaryBG,
+                                            ),
+                                            child: const Center(
+                                                child: Text('10 / 10 task')),
+                                          ),
+                                          const Text(
+                                            'Pemrogramana Desktop',
+                                            style: TextStyle(
+                                                color: AppColors.primaryText,
+                                                fontSize: 20),
+                                          ),
+                                          const Text(
+                                            'Deadline 2 hari lagi',
+                                            style: TextStyle(
+                                                color: AppColors.primaryText,
+                                                fontSize: 15),
+                                          ),
+                                        ]),
+                                  ),
                                 );
                               },
                             ),
@@ -197,22 +208,101 @@ class TaskView extends GetView<TaskController> {
         alignment: const Alignment(0.95, 0.95),
         child: FloatingActionButton.extended(
           onPressed: () {
-            Get.bottomSheet(Container(
-              margin: context.isPhone
-                  ? const EdgeInsets.only()
-                  : const EdgeInsets.only(left: 120, right: 120),
-              height: Get.height,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20)),
-                  color: Colors.white),
-            ));
+            addEditTask(context: context, type: 'Add', docId: '');
           },
           label: const Text("Add Task"),
           icon: const Icon(Ionicons.add),
         ),
       ),
     );
+  }
+
+  addEditTask({BuildContext? context, String? type, String? docId}) {
+    Get.bottomSheet(SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.only(top: 20, left: 25, right: 25),
+        margin: context!.isPhone
+            ? const EdgeInsets.only()
+            : const EdgeInsets.only(left: 120, right: 120),
+        height: 500,
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+            color: Colors.white),
+        child: Form(
+            key: controller.formKey,
+            child: Column(
+              children: [
+                Text(
+                  '$type Task',
+                  style: const TextStyle(
+                      color: AppColors.primaryText,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 15),
+                TextFormField(
+                  decoration: InputDecoration(
+                      hintText: 'Tittle',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                  controller: controller.tittleController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Cannot be empty';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 5),
+                TextFormField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                      hintText: 'Description',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                  controller: controller.descriptionsController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Cannot be empty';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 5),
+                DateTimePicker(
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2100),
+                    decoration: InputDecoration(
+                        hintText: 'Due Date',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8))),
+                    controller: controller.dueDateController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Cannot be empty';
+                      }
+                      return null;
+                    }),
+                const SizedBox(height: 15),
+                ConstrainedBox(
+                    constraints:
+                        BoxConstraints.tightFor(width: Get.width, height: 40),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          controller.saveUpdateTask(
+                            controller.tittleController.text,
+                            controller.descriptionsController.text,
+                            controller.dueDateController.text,
+                            docId!,
+                            type!,
+                          );
+                        },
+                        child: Text(type!)))
+              ],
+            )),
+      ),
+    ));
   }
 }
