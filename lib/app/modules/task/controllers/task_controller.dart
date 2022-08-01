@@ -60,7 +60,7 @@ class TaskController extends GetxController {
     if (type == 'Add') {
       await taskColl.doc(taskId).set({
         'tittle': tittle,
-        'decription': description,
+        'description': description,
         'dueDate': dueDate,
         'status': '0',
         'total_task': '0',
@@ -70,9 +70,10 @@ class TaskController extends GetxController {
         'created_by': authC.auth.currentUser!.email,
       }).whenComplete(() async {
         await usersColl.doc(authC.auth.currentUser!.email).set({
-          'tasl_id': FieldValue.arrayUnion([taskId])
+          'task_id': FieldValue.arrayUnion([taskId])
         }, SetOptions(merge: true));
         Get.back();
+
         Get.snackbar('Task', 'Succesfully $type');
       }).catchError((error) {
         Get.snackbar('Task', 'Error $type');
@@ -80,17 +81,30 @@ class TaskController extends GetxController {
     } else {
       await taskColl.doc(docId).update({
         'tittle': tittle,
-        'decription': description,
+        'description': description,
         'dueDate': dueDate,
       }).whenComplete(() async {
-        await usersColl.doc(authC.auth.currentUser!.email).set({
-          'tasl_id': FieldValue.arrayUnion([taskId])
-        }, SetOptions(merge: true));
+        // await usersColl.doc(authC.auth.currentUser!.email).set({
+        //   'task_id': FieldValue.arrayUnion([taskId])
+        // }, SetOptions(merge: true));
         Get.back();
         Get.snackbar('Task', 'Succesfully $type');
       }).catchError((error) {
         Get.snackbar('Task', 'Error $type');
       });
     }
+  }
+
+  void deleteTask(String taskId) async {
+    CollectionReference taskColl = firestore.collection('task');
+    CollectionReference usersColl = firestore.collection('users');
+
+    await taskColl.doc(taskId).delete().whenComplete(() async {
+      await usersColl.doc(auth.currentUser!.email).set({
+        'task_id': FieldValue.arrayRemove([taskId])
+      }, SetOptions(merge: true));
+      Get.back();
+      Get.snackbar('Task', 'Succesfully deleted');
+    });
   }
 }

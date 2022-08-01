@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -7,11 +8,12 @@ import 'package:task_management_app/app/utils/style/AppColors.dart';
 import 'package:task_management_app/app/utils/widget/SideBar.dart';
 import 'package:task_management_app/app/utils/widget/header.dart';
 
+import '../../../data/controller/auth_controller.dart';
 import '../controllers/task_controller.dart';
 
 class TaskView extends GetView<TaskController> {
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
-  TaskView({Key? key}) : super(key: key);
+  final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,95 +108,243 @@ class TaskView extends GetView<TaskController> {
                           ),
                           const SizedBox(height: 10),
                           Expanded(
-                            child: ListView.builder(
-                              itemCount: 8,
-                              clipBehavior: Clip.antiAlias,
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onLongPress: () {
-                                    addEditTask(
-                                        context: context,
-                                        type: 'Update',
-                                        docId: '2022-08-01T11:49:53.686660');
-                                  },
-                                  child: Container(
-                                    height: 160,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: AppColors.cardBG,
-                                    ),
-                                    margin: const EdgeInsets.all(15),
-                                    padding: const EdgeInsets.all(20),
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              const ClipRRect(
-                                                child: CircleAvatar(
-                                                    backgroundColor:
-                                                        Colors.white,
-                                                    radius: 20,
-                                                    foregroundImage: AssetImage(
-                                                        'assets/images/avatar.png')),
-                                              ),
-                                              const Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: 3)),
-                                              const ClipRRect(
-                                                child: CircleAvatar(
-                                                    backgroundColor:
-                                                        Colors.white,
-                                                    radius: 20,
-                                                    foregroundImage: AssetImage(
-                                                        'assets/images/avatar.png')),
-                                              ),
-                                              const Spacer(),
-                                              Container(
-                                                height: 25,
-                                                width: 80,
+                            //stream user for get task list
+                            child: StreamBuilder<
+                                    DocumentSnapshot<Map<String, dynamic>>>(
+                                stream: authC.streamUsers(
+                                    authC.auth.currentUser!.email!),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                  //get task id
+                                  var taskId = (snapshot.data!.data()
+                                          as Map<String, dynamic>)['task_id']
+                                      as List;
+                                  return ListView.builder(
+                                    itemCount: taskId.length,
+                                    clipBehavior: Clip.antiAlias,
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return StreamBuilder<
+                                              DocumentSnapshot<
+                                                  Map<String, dynamic>>>(
+                                          stream:
+                                              authC.streamTask(taskId[index]),
+                                          builder: (context, snapshot2) {
+                                            if (snapshot2.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return const Center(
+                                                  child:
+                                                      CircularProgressIndicator());
+                                            }
+
+                                            //data task
+                                            var dataTask =
+                                                snapshot2.data!.data();
+                                            //data user photo
+                                            var dataUserList =
+                                                (snapshot2.data!.data() as Map<
+                                                        String,
+                                                        dynamic>)['asign_to']
+                                                    as List;
+                                            return GestureDetector(
+                                              onLongPress: () {
+                                                Get.defaultDialog(
+                                                    title: dataTask!['tittle'],
+                                                    titlePadding:
+                                                        const EdgeInsets.only(
+                                                            top: 20,
+                                                            bottom: 15),
+                                                    content: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        TextButton.icon(
+                                                            onPressed: () {
+                                                              Get.back();
+                                                              controller
+                                                                      .tittleController
+                                                                      .text =
+                                                                  dataTask[
+                                                                      'tittle'];
+                                                              controller
+                                                                      .descriptionsController
+                                                                      .text =
+                                                                  dataTask[
+                                                                      'description'];
+                                                              controller
+                                                                      .dueDateController
+                                                                      .text =
+                                                                  dataTask[
+                                                                      'dueDate'];
+                                                              addEditTask(
+                                                                  context:
+                                                                      context,
+                                                                  type:
+                                                                      'Updated',
+                                                                  docId: taskId[
+                                                                      index]);
+                                                            },
+                                                            icon: const Icon(
+                                                                Ionicons
+                                                                    .pencil),
+                                                            label: const Text(
+                                                                'Update')),
+                                                        TextButton.icon(
+                                                            onPressed: () {
+                                                              controller
+                                                                  .deleteTask(
+                                                                      taskId[
+                                                                          index]);
+                                                            },
+                                                            icon: const Icon(
+                                                                Ionicons.trash),
+                                                            label: const Text(
+                                                                'Delete'))
+                                                      ],
+                                                    ));
+                                                // addEditTask(
+                                                //     context: context,
+                                                //     type: 'Update',
+                                                //     docId:
+                                                //         '2022-08-01T11:49:53.686660');
+                                              },
+                                              child: Container(
+                                                height: 180,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(20),
-                                                  color: AppColors.primaryBG,
+                                                  color: AppColors.cardBG,
                                                 ),
-                                                child: const Center(
-                                                    child: Text('100%')),
+                                                margin:
+                                                    const EdgeInsets.all(10),
+                                                padding:
+                                                    const EdgeInsets.all(20),
+                                                child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 50,
+                                                            child: Expanded(
+                                                              child: ListView
+                                                                  .builder(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                itemCount:
+                                                                    dataUserList
+                                                                        .length,
+                                                                scrollDirection:
+                                                                    Axis.horizontal,
+                                                                shrinkWrap:
+                                                                    true,
+                                                                physics:
+                                                                    const ScrollPhysics(),
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        index2) {
+                                                                  return StreamBuilder<
+                                                                          DocumentSnapshot<
+                                                                              Map<String,
+                                                                                  dynamic>>>(
+                                                                      stream: authC.streamUsers(
+                                                                          dataUserList[
+                                                                              index2]),
+                                                                      builder:
+                                                                          (context,
+                                                                              snapshot3) {
+                                                                        if (snapshot3.connectionState ==
+                                                                            ConnectionState.waiting) {
+                                                                          return const Center(
+                                                                              child: CircularProgressIndicator());
+                                                                        }
+
+                                                                        //data user foto
+                                                                        var dataUserImage = snapshot3
+                                                                            .data!
+                                                                            .data();
+                                                                        return ClipRRect(
+                                                                          child: CircleAvatar(
+                                                                              backgroundColor: Colors.white,
+                                                                              radius: 25,
+                                                                              foregroundImage: NetworkImage(dataUserImage!['photo'])),
+                                                                        );
+                                                                      });
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          const Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      right:
+                                                                          3)),
+                                                          const Spacer(),
+                                                          Container(
+                                                            height: 25,
+                                                            width: 80,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20),
+                                                              color: AppColors
+                                                                  .primaryBG,
+                                                            ),
+                                                            child: Center(
+                                                                child: Text(
+                                                                    '${dataTask!['status']} %')),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const Spacer(),
+                                                      const SizedBox(
+                                                          height: 20),
+                                                      Container(
+                                                        height: 25,
+                                                        width: 80,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                          color: AppColors
+                                                              .primaryBG,
+                                                        ),
+                                                        child: Text(
+                                                            '${dataTask['total_task_finished']} / ${dataTask['total_task']} Task'),
+                                                      ),
+                                                      Text(
+                                                        dataTask['tittle'],
+                                                        style: const TextStyle(
+                                                            color: AppColors
+                                                                .primaryText,
+                                                            fontSize: 20),
+                                                      ),
+                                                      Text(
+                                                        dataTask['description'],
+                                                        style: const TextStyle(
+                                                            color: AppColors
+                                                                .primaryText,
+                                                            fontSize: 15),
+                                                      ),
+                                                    ]),
                                               ),
-                                            ],
-                                          ),
-                                          const Spacer(),
-                                          Container(
-                                            height: 25,
-                                            width: 80,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              color: AppColors.primaryBG,
-                                            ),
-                                            child: const Center(
-                                                child: Text('10 / 10 task')),
-                                          ),
-                                          const Text(
-                                            'Pemrogramana Desktop',
-                                            style: TextStyle(
-                                                color: AppColors.primaryText,
-                                                fontSize: 20),
-                                          ),
-                                          const Text(
-                                            'Deadline 2 hari lagi',
-                                            style: TextStyle(
-                                                color: AppColors.primaryText,
-                                                fontSize: 15),
-                                          ),
-                                        ]),
-                                  ),
-                                );
-                              },
-                            ),
+                                            );
+                                          });
+                                    },
+                                  );
+                                }),
                           ),
                         ]),
                   ),
