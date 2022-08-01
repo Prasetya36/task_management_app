@@ -44,7 +44,7 @@ class MyFriends extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 20),
           child: SizedBox(
-            height: 200,
+            height: 223,
             child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                 stream: authC.streamFriends(),
                 builder: (context, snapshot) {
@@ -61,7 +61,7 @@ class MyFriends extends StatelessWidget {
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: context.isPhone ? 2 : 5,
                       crossAxisSpacing: 1,
-                      mainAxisSpacing: 30,
+                      mainAxisSpacing: 10,
                     ),
                     itemBuilder: (context, index) {
                       return StreamBuilder<
@@ -77,14 +77,23 @@ class MyFriends extends StatelessWidget {
                             var data = snapshot2.data!.data();
 
                             return Column(children: [
-                              CircleAvatar(
-                                maxRadius: 80,
-                                foregroundImage: NetworkImage(data!['photo']),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image(
+                                  image: NetworkImage(data!['photo']),
+                                  height: 170,
+                                  width: 170,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              Text(
-                                (data['name']),
-                                style: const TextStyle(
-                                    color: AppColors.primaryText, fontSize: 18),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Text(
+                                  (data['name']),
+                                  style: const TextStyle(
+                                      color: AppColors.primaryText,
+                                      fontSize: 18),
+                                ),
                               ),
                             ]);
                           });

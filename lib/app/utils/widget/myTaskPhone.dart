@@ -7,7 +7,7 @@ import 'package:task_management_app/app/utils/widget/prosesTask.dart';
 
 import '../../data/controller/auth_controller.dart';
 
-class MyTask extends StatelessWidget {
+class MyTaskPhone extends StatelessWidget {
   final authC = Get.find<AuthController>();
 
   @override
@@ -37,7 +37,7 @@ class MyTask extends StatelessWidget {
                 var taskId = (snapshot.data!.data()
                     as Map<String, dynamic>)['task_id'] as List;
                 return SizedBox(
-                  height: context.isPhone ? 425 : 264,
+                  height: context.isPhone ? 655 : 264,
                   child: ListView.builder(
                     itemCount: taskId.length,
                     clipBehavior: Clip.antiAlias,

@@ -4,17 +4,17 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:task_management_app/app/data/controller/auth_controller.dart';
 import 'package:task_management_app/app/utils/style/AppColors.dart';
-import 'package:task_management_app/app/utils/widget/MyTask.dart';
 import 'package:task_management_app/app/utils/widget/ProfileWidget.dart';
 import 'package:task_management_app/app/utils/widget/SideBar.dart';
 import 'package:task_management_app/app/utils/widget/header.dart';
+import 'package:task_management_app/app/utils/widget/peopleYouMayKnow.dart';
 
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   final authC = Get.find<AuthController>();
-  ProfileView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,55 +122,14 @@ class ProfileView extends GetView<ProfileController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          !context.isPhone
-                              ? const ProfileWidget()
-                              : Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 40, bottom: 20, left: 60),
-                                  child: Expanded(
-                                    child: Column(
-                                      children: [
-                                        const ClipRRect(
-                                          child: CircleAvatar(
-                                            maxRadius: 100,
-                                            backgroundImage: AssetImage(
-                                                'assets/images/avatar.png'),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 20, right: 20, bottom: 10),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: const [
-                                              Text(
-                                                'Jhosua Sitorus',
-                                                style: TextStyle(
-                                                  color: AppColors.primaryText,
-                                                  fontSize: 30,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Sitorus@gmail.com',
-                                                style: TextStyle(
-                                                  color: AppColors.primaryText,
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                          ProfileWidget(),
                           Padding(
                             padding: !context.isPhone
                                 ? const EdgeInsets.only(left: 70)
-                                : const EdgeInsets.only(left: 15, top: 50),
+                                : const EdgeInsets.only(
+                                    left: 15, top: 50, bottom: 20),
                             child: const Text(
-                              'My Task',
+                              'People You May Know',
                               style: TextStyle(
                                 color: AppColors.primaryText,
                                 fontSize: 23,
@@ -181,9 +140,12 @@ class ProfileView extends GetView<ProfileController> {
                             padding: !context.isPhone
                                 ? const EdgeInsets.only(left: 70)
                                 : const EdgeInsets.only(left: 10),
-                            child: const SizedBox(
+                            child: SizedBox(
                               height: 180,
-                              child: MyTask(),
+                              child: SizedBox(
+                                child: PeopleYouMayKnow(),
+                                width: Get.width,
+                              ),
                             ),
                           )
                         ],
